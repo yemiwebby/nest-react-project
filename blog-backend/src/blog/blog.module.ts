@@ -12,7 +12,7 @@ import { AuthenticationMiddleware } from '../common/authentication.middleware';
   controllers: [BlogController],
   providers: [BlogService]
 })
-export class BlogModule {
+export class BlogModule implements NestModule {
   configure(consumer: MiddlewareConsumer): MiddlewareConsumer | void {
     consumer.apply(AuthenticationMiddleware).forRoutes(
       { method: RequestMethod.POST, path: '/blog/post' },

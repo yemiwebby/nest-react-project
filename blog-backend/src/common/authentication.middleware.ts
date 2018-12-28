@@ -12,11 +12,11 @@ export class AuthenticationMiddleware implements NestMiddleware {
                     cache: true,
                     rateLimit: true,
                     jwksRequestsPerMinute: 5,
-                    jwksUri: `https://webby.auth0.com/.well-known/jwks.json`,
+                    jwksUri: `https://YOUR_DOMAIN/.well-known/jwks.json`,
                 }),
 
                 audience: "http://localhost:3000/",
-                issuer: `https://webby.auth0.com/`,
+                issuer: `https://YOUR_DOMAIN/`,
                 algorithm: ['RS256'],
             })(req, res, (err) => {
                 console.log(err);

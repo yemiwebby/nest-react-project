@@ -9,8 +9,8 @@ class AuthenticateUsers {
 
     constructor() {
         this.authClient = new WebAuth({
-            clientID: 'kdKA3zlTOUgAkPGDEEZHrdoTxEMURvYh',
-            domain: 'webby.auth0.com',
+            clientID: 'YOUR_CLIENT_ID',
+            domain: 'YOUR_DOMAIN',
             responseType: 'token id_token',
             audience: 'http://localhost:3000/',
             redirectUri: 'http://localhost:3000/callback',
@@ -64,7 +64,7 @@ class AuthenticateUsers {
     public logout(): void {
         this.authClient.logout({
             returnTo: 'http://localhost:3000/',
-            clientID: 'kdKA3zlTOUgAkPGDEEZHrdoTxEMURvYh'
+            clientID: 'YOUR_CLIENT_ID'
         })
     }
 
