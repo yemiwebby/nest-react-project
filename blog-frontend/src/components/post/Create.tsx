@@ -3,34 +3,48 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 import auth0Client from '../../utils/auth';
 
 export interface IValues {
-    [key: string]: any;
+    title: string,
+    description: string,
+    body: string,
+    author: string
 }
 
 export interface IFormState {
-    values: IValues;
-    author: string,
+    [key: string]: any;
+    values: IValues[];
     submitSuccess?: boolean;
 }
 
 class Create extends React.Component<{} & RouteComponentProps, IFormState> {
     constructor(props: any) {
         super(props);
-        const values: IValues = {};
-        this.state = { values, author: auth0Client.getProfile().nickname }
+        this.state = {
+            title: '',
+            description: '',
+            body: '',
+            author: auth0Client.getProfile().nickname,
+            values: []
+        }
     }
 
     private handleFormSubmission = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
         e.preventDefault();
-        const submitSuccess: boolean = await this.submitForm();
-        this.setState({ submitSuccess });
-        this.props.history.push('/');
+
+        const formData = {
+            title: this.state.title,
+            description: this.state.description,
+            body: this.state.body,
+            author: this.state.author
+        }
+
+        const submitSuccess: boolean = await this.submitForm(formData);
+        this.setState({ submitSuccess, values: [...this.state.values, formData] });
+        setTimeout(() => {
+            this.props.history.push('/');
+        }, 1500)
     }
 
-    private setValues = (values: IValues) => {
-        this.setState({ values: { ...this.state.values, ...values } })
-    }
-
-    private async submitForm(): Promise<boolean> {
+    private async submitForm(formData: {}) {
         try {
             const response = await fetch('http://localhost:5000/blog/post', {
                 method: "post",
@@ -39,7 +53,7 @@ class Create extends React.Component<{} & RouteComponentProps, IFormState> {
                     "Accept": "application/json",
                     "authorization": `Bearer ${auth0Client.getAccessToken()}`
                 }),
-                body: JSON.stringify(this.state.values)
+                body: JSON.stringify(formData)
             });
             return response.ok;
         } catch (ex) {
@@ -48,7 +62,10 @@ class Create extends React.Component<{} & RouteComponentProps, IFormState> {
     }
 
     private handleInputChanges = (e: React.FormEvent<HTMLInputElement>) => {
-        this.setValues({ [e.currentTarget.id]: e.currentTarget.value })
+        e.preventDefault();
+        this.setState({
+            [e.currentTarget.name]: e.currentTarget.value,
+        })
     }
 
     public render() {
@@ -57,9 +74,18 @@ class Create extends React.Component<{} & RouteComponentProps, IFormState> {
             <div>
                 <div className={"col-md-12 form-wrapper"}>
                     <h2> Create Post </h2>
-                    <div className="alert alert-info" role="alert">
-                        Fill the form below to create a new post
+                    {!submitSuccess && (
+                        <div className="alert alert-info" role="alert">
+                            Fill the form below to create a new post
                     </div>
+                    )}
+
+                    {submitSuccess && (
+                        <div className="alert alert-info" role="alert">
+                            The form was successfully submitted!
+                            </div>
+                    )}
+
                     <form id={"create-post-form"} onSubmit={this.handleFormSubmission} noValidate={true}>
                         <div className="form-group col-md-12">
                             <label htmlFor="title"> Title </label>
@@ -84,12 +110,6 @@ class Create extends React.Component<{} & RouteComponentProps, IFormState> {
                         <div className="form-group col-md-4 pull-right">
                             <button className="btn btn-success" type="submit"> Create Post </button>
                         </div>
-
-                        {submitSuccess && (
-                            <div className="alert alert-info" role="alert">
-                                The form was successfully submitted!
-                            </div>
-                        )}
                     </form>
                 </div>
             </div>

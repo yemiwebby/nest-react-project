@@ -55,7 +55,6 @@ export class Home extends React.Component<{}, IState> {
                                     </div>
 
                                     <div className="card-footer">
-                                        <small className="text-muted">Posted on: {post.date_posted}</small>
                                         <small className="text-muted">by: {post.author}</small>
                                     </div>
 
