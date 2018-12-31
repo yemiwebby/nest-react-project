@@ -19,6 +19,11 @@ To easily set up the application, clone this repository which contains directory
 git clone https://github.com/yemiwebby/nest-react-project.git
 ```
 
+## Change directory into the newly cloned project
+```bash
+cd nest-react-project
+```
+
 ## Backend
 ### Change directory into the backend
 ```bash
