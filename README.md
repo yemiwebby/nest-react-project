@@ -19,6 +19,11 @@ To easily set up the application, clone this repository which contains directory
 git clone https://github.com/yemiwebby/nest-react-project.git
 ```
 
+## Change directory into the newly cloned project
+```bash
+cd nest-react-project
+```
+
 ## Backend
 ### Change directory into the backend
 ```bash
@@ -30,7 +35,7 @@ cd blog-backend
 ```bash
 npm install
 ```
-Once the installation process is complete, navigate to `./src/common/authentication.middleware.ts` and replace the `YOUR_DOMAIN` placeholder with the appropriate credential.
+Once the installation process is complete, open the `blog-backend` with any favorite editor of yours and navigate to `./src/common/authentication.middleware.ts` and replace the `YOUR_DOMAIN` placeholder with the credential that I will share with you.
 
 ### MongoDB
 Ensure that you have mongoDB installed on your machine before running the application. I have this fully setup on my mac already.
