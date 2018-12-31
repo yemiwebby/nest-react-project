@@ -35,7 +35,7 @@ cd blog-backend
 ```bash
 npm install
 ```
-Once the installation process is complete, open the `blog-backend` with any favorite editor of yours and navigate to `./src/common/authentication.middleware.ts` and replace the `YOUR_DOMAIN` placeholder with the credential that I will share with you.
+Once the installation process is complete, open the `blog-backend` with any favorite editor of yours and navigate to `./src/common/authentication.middleware.ts` and replace the `YOUR_DOMAIN` placeholder with the appropriate credential.
 
 ### MongoDB
 Ensure that you have mongoDB installed on your machine before running the application. I have this fully setup on my mac already.
