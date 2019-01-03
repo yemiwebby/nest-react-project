@@ -8,6 +8,7 @@ export class AuthenticationMiddleware implements NestMiddleware {
     resolve(): MiddlewareFunction {
         return (req, res, next) => {
             jwt({
+
                 secret: expressJwtSecret({
                     cache: true,
                     rateLimit: true,
