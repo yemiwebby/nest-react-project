@@ -9,6 +9,7 @@
     "react-router-dom": "^4.3.1",
     "react-scripts-ts": "3.1.0"
   },
+  "proxy": "http://localhost:5000/",
   "scripts": {
     "start": "react-scripts-ts start",
     "build": "react-scripts-ts build",
