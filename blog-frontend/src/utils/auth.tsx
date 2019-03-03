@@ -3,7 +3,6 @@ import { WebAuth } from 'auth0-js';
 class AuthenticateUsers {
   public authClient: WebAuth;
   private profile: any;
-  // public accessToken: any;
   public idToken: string;
   public expiresAt: any;
 
@@ -12,13 +11,11 @@ class AuthenticateUsers {
       clientID: `${process.env.REACT_APP_AUTH0_CLIENT_ID}`,
       domain: `${process.env.REACT_APP_AUTH0_DOMAIN}`,
       responseType: 'id_token',
-      // audience: process.env.REACT_APP_AUTH0_AUDIENCE,
       redirectUri: `${process.env.REACT_APP_AUTH0_REDIRECT_URI}`,
       scope: 'openid profile'
     });
 
     this.getProfile = this.getProfile.bind(this);
-    // this.getAccessToken = this.getAccessToken.bind(this);
     this.getIdToken = this.getIdToken.bind(this);
     this.silentAuth = this.silentAuth.bind(this);
     this.handleAuthentication = this.handleAuthentication.bind(this);
@@ -32,20 +29,22 @@ class AuthenticateUsers {
     this.authClient.authorize();
   }
 
-  public handleAuthentication(): void {
-    this.authClient.parseHash((err: auth0.Auth0Error, result: auth0.Auth0DecodedHash) => {
-      if (result && result.idToken) {
+  public handleAuthentication() {
+    return new Promise((resolve, reject) => {
+      this.authClient.parseHash((err: auth0.Auth0Error, result: auth0.Auth0DecodedHash) => {
+        if (err) { return reject(err) };
+        if (!result || !result.idToken) {
+          return reject(err);
+        }
         this.setSession(result);
-      } else if (err) {
-        console.error(err);
-      }
+        resolve();
+      })
     })
   }
 
   private setSession(authResult: any): void {
     const { idTokenPayload, idToken } = authResult;
     this.profile = idTokenPayload;
-    // this.accessToken = accessToken;
     this.idToken = idToken;
     this.expiresAt = idTokenPayload.exp * 1000 + new Date().getTime();
   }
@@ -57,10 +56,6 @@ class AuthenticateUsers {
   public getProfile() {
     return this.profile;
   }
-
-  // public getAccessToken() {
-  //   return this.accessToken;
-  // }
 
   public getIdToken() {
     return this.idToken;

@@ -10,22 +10,33 @@ import auth0Client from './utils/auth';
 import PrivateRoute from './components/PrivateRoute';
 import NavBar from './components/NavBar';
 
+export interface ISessionState {
+  validateSession: boolean
+}
 
-class App extends React.Component<{} & RouteComponentProps<any>, {}> {
+
+class App extends React.Component<{} & RouteComponentProps<any>, ISessionState> {
+
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      validateSession: true,
+    }
+  }
 
   public async componentDidMount() {
     if (this.props.location.pathname === '/callback') {
-      window.location.reload();
+      this.setState({ validateSession: false });
       return;
-    } else {
-      try {
-        await auth0Client.silentAuth();
-        this.forceUpdate();
-      } catch (err) {
-        if (err.error === 'login_required') { return };
-        console.log(err);
-      }
     }
+    try {
+      await auth0Client.silentAuth();
+      this.forceUpdate();
+    } catch (err) {
+      if (err.error === 'login_required') { return };
+      console.log(err);
+    }
+    this.setState({ validateSession: false });
   }
 
   public render() {
@@ -34,11 +45,11 @@ class App extends React.Component<{} & RouteComponentProps<any>, {}> {
         <NavBar />
         <div className={'container'}>
           <Switch>
-            <PrivateRoute path={"/edit/:id"} component={EditPost} />
-            <Route path={"/post/:id"} component={Post} />
-            <PrivateRoute path={"/create"} component={Create} />
-            <Route path={"/callback"} exact={true} component={Callback} />
             <Route path={"/"} exact={true} component={Home} />
+            <Route path={"/post/:id"} component={Post} />
+            <Route path={"/callback"} exact={true} component={Callback} />
+            <PrivateRoute path={"/edit/:id"} component={EditPost} validateSession={this.state.validateSession} />
+            <PrivateRoute path={"/create"} component={Create} validateSession={this.state.validateSession} />
           </Switch>
         </div>
       </div>

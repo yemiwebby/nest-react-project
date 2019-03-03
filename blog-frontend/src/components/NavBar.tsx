@@ -16,19 +16,19 @@ class NavBar extends React.Component<{} & RouteComponentProps<any>, {}> {
         <div className="collapse navbar-collapse" id="navbarText">
           <ul className="navbar-nav mr-auto">
             <li className="nav-item">
-              {/* <Link className={"nav-link"} to={"/"}> */}
-              {
-                !auth0Client.isAuthenticated() &&
-                <button className="btn btn-dark" onClick={auth0Client.login}>Sign In</button>
-              }
-              {
-                auth0Client.isAuthenticated() &&
-                <div>
-                  <label className="mr-2 text-white">{auth0Client.getProfile().name}</label>
-                  <button className="btn btn-dark" onClick={() => this.logout()}>Sign Out</button>
-                </div>
-              }
-              {/* </Link> */}
+              <Link className={"nav-link"} to={"/"}>
+                {
+                  !auth0Client.isAuthenticated() &&
+                  <button className="btn btn-dark" onClick={auth0Client.login}>Sign In</button>
+                }
+                {
+                  auth0Client.isAuthenticated() &&
+                  <div>
+                    <label className="mr-2 text-white">{auth0Client.getProfile().name}</label>
+                    <button className="btn btn-dark" onClick={() => this.logout()}>Sign Out</button>
+                  </div>
+                }
+              </Link>
             </li>
 
             <li className="nav-item">

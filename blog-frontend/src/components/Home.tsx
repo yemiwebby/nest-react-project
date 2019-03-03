@@ -50,7 +50,11 @@ export class Home extends React.Component<{} & RouteComponentProps, IState> {
                   <p className="card-text">{post.body}</p>
                   <div className="d-flex justify-content-between align-items-center">
                     <div className="btn-group">
-                      <Link to={`edit/${post._id}`} className="btn btn-sm btn-outline-secondary">Edit Post </Link>
+                      {
+                        auth0Client.isAuthenticated() && (auth0Client.getProfile().nickname === post.author) &&
+                        <Link to={`edit/${post._id}`} className="btn btn-sm btn-outline-secondary">Edit Post </Link>
+                      }
+
                       <Link to={`post/${post._id}`} className="btn btn-sm btn-outline-secondary">View Post </Link>
                       {
                         auth0Client.isAuthenticated() && (auth0Client.getProfile().nickname === post.author) &&
