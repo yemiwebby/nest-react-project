@@ -1,4 +1,4 @@
-const {MongoMemoryServer} = require('mongodb-memory-server');
+const { MongoMemoryServer } = require('mongodb-memory-server');
 
 (async () => {
   const mongod = new MongoMemoryServer({
