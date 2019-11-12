@@ -30,27 +30,51 @@ export class Post extends React.Component<{} & RouteComponentProps<any>, IState>
   public render() {
     const post = this.state.post;
     return (
-      <div className={'text-center page-wrapper'}>
-        <div>
-          <h4>
-            <small>
-              <button className="btn btn-success" onClick={() => this.viewAllPosts()}> View All Posts
-                            </button>
-            </small>
-          </h4>
-        </div>
-        {
-          this.state.post &&
-          <div className="col-sm-12">
+      <section className="post-area">
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-1 col-md-0" />
+            <div className="col-lg-10 col-md-12">
+              <div className="main-post">
+                <div className="post-top-area">
+                  <h5 className="pre-title">Nest React Blog</h5>
+                  <h3 className="title">
+                    <a href="#">
+                      <b>{post.title}</b>
+                    </a>
+                  </h3>
 
-            <h2>{post.title}</h2>
-            <h5>
-              Post by {post.author}.</h5>
-            <p> {post.body} </p>
+                  <p className="para">
+                    {post.body}
+                  </p>
+                </div>
+              </div>
+            </div>
 
           </div>
-        }
-      </div >
+        </div>
+      </section>
+      // <div className={'text-center page-wrapper'}>
+      //   <div>
+      //     <h4>
+      //       <small>
+      //         <button className="btn btn-success" onClick={() => this.viewAllPosts()}> View All Posts
+      //                       </button>
+      //       </small>
+      //     </h4>
+      //   </div>
+      //   {
+      //     this.state.post &&
+      //     <div className="col-sm-12">
+
+      //       <h2>{post.title}</h2>
+      //       <h5>
+      //         Post by {post.author}.</h5>
+      //       <p> {post.body} </p>
+
+      //     </div>
+      //   }
+      // </div >
     )
   }
 }

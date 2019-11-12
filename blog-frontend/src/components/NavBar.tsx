@@ -11,11 +11,19 @@ class NavBar extends React.Component<{} & RouteComponentProps<any>, {}> {
 
   public render() {
     return (
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-        <Link className={"nav-link"} to={"/"}> Nest React TypeScript Blog </Link>
-        <div className="collapse navbar-collapse" id="navbarText">
-          <ul className="navbar-nav mr-auto">
-            <li className="nav-item">
+      <header>
+        <div className="container-fluid position-relative no-side-padding">
+          <a href="#" className="logo">
+            <img src="https://res.cloudinary.com/yemiwebby-com-ng/image/upload/v1513770253/WEB_FREAK_50PX-01_yaqxg7.png" alt="Logo Image" />
+          </a>
+
+          <div className="menu-nav-icon" data-nav-menu="#main-menu">
+            <i className="ion-navicon" />
+          </div>
+
+          <ul className="main-menu visible-on-click" id="main-menu">
+            <li><Link className={"nav-link"} to={"/"}> Nest React TypeScript Blog </Link></li>
+            <li>
               <Link className={"nav-link"} to={"/"}>
                 {
                   !auth0Client.isAuthenticated() &&
@@ -24,23 +32,17 @@ class NavBar extends React.Component<{} & RouteComponentProps<any>, {}> {
                 {
                   auth0Client.isAuthenticated() &&
                   <div>
-                    <label className="mr-2 text-white">{auth0Client.getProfile().name}</label>
+                    <label className="mr-2">{auth0Client.getProfile().name}</label>
                     <button className="btn btn-dark" onClick={() => this.logout()}>Sign Out</button>
                   </div>
                 }
               </Link>
             </li>
-
-            <li className="nav-item">
-              <Link className={"nav-link"} to={"/"}> Home </Link>
-            </li>
-
-            <li className="nav-item">
-              <Link className={"nav-link"} to={"/create"}> Create </Link>
-            </li>
+            <li><Link className={"nav-link"} to={"/"}> Home </Link></li>
+            <li><Link className={"nav-link"} to={"/create"}> Create </Link></li>
           </ul>
         </div>
-      </nav>
+      </header>
     )
   }
 }

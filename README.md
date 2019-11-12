@@ -35,7 +35,23 @@ cd blog-backend
 ```bash
 npm install
 ```
-Once the installation process is complete, open the `blog-backend` with any favorite editor of yours and navigate to `./src/common/authentication.middleware.ts` and replace the `YOUR_DOMAIN` placeholder with the appropriate credential.
+
+### Create .env file
+Once the installation process is complete, create a `.env` file:
+
+```bash
+touch .env
+```
+
+Open the newly created file and add the following code:
+
+```
+AUTH0_DOMAIN=YOUR_AUTH0_DOMAIN
+AUTH0_AUDIENCE=YOUR_AUTH0_AUDIENCE
+```
+
+Ensure that you replace the `YOUR_AUTH0_DOMAIN` and `YOUR_AUTH0_AUDIENCE` placeholder with the appropriate credentials as obtained from your Auth0 dashboard.
+
 
 ### MongoDB
 Ensure that you have mongoDB installed on your machine before running the application. I have this fully setup on my mac already.
@@ -71,9 +87,25 @@ npm install
 npm start
 ```
 
-### Include Auth0 App credentials
+### Create .env file and include Auth0 App credentials
 
-Navigate to `./src/utils/auth.tsx` file and replace the `YOUR_CLIENT_ID` and `YOUR_DOMAIN` placeholder with the appropriate credentials. You can find the placeholders within the `constructor()` and `logout()` method.
+Create a `.env` file as shown here:
+
+```
+touch .env
+```
+
+Open the file and paste the following code in it:
+
+```
+REACT_APP_AUTH0_CLIENT_ID=YOUR_AUTH0_CLIENT_ID
+REACT_APP_AUTH0_DOMAIN=YOUR_AUTH0_DOMAIN
+REACT_APP_AUTH0_AUDIENCE=YOUR_AUTH0_AUDIENCE
+REACT_APP_AUTH0_REDIRECT_URI=http://localhost:3000/callback
+REACT_APP_BASEURL=http://localhost:3000/
+```
+
+Replace `YOUR_AUTH0_CLIENT_ID`, `YOUR_AUTH0_DOMAIN` and `YOUR_AUTH0_AUDIENCE` placeholder with your Auth0 credentials.
 
 ### Test the application
 Finally open your browser and view the application on http://localhost:3000

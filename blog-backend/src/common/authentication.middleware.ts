@@ -4,7 +4,6 @@ import { expressJwtSecret } from 'jwks-rsa';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
-
 @Injectable()
 export class AuthenticationMiddleware implements NestMiddleware {
   resolve(): MiddlewareFunction {
@@ -22,16 +21,15 @@ export class AuthenticationMiddleware implements NestMiddleware {
         issuer: `https://${process.env.AUTH0_DOMAIN}/`,
         algorithm: ['RS256'],
       })(req, res, (err) => {
-        console.log(err);
         if (err) {
           const status = err.status || 500;
           const message = err.message || 'Sorry we were unable to process your request.';
           return res.status(status).send({
             message,
-          })
+          });
         }
         next();
       });
-    }
+    };
   }
 }
