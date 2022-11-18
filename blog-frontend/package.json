@@ -7,7 +7,7 @@
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-router-dom": "^4.3.1",
-    "react-scripts-ts": "3.1.0"
+    "react-scripts-ts": "4.0.8"
   },
   "proxy": "http://localhost:5000/",
   "scripts": {
