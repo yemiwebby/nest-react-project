@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "@nestjs/common": "^5.4.0",
-    "@nestjs/core": "^5.4.0",
+    "@nestjs/core": "^9.2.1",
     "@nestjs/mongoose": "^5.2.2",
     "dotenv": "^6.2.0",
     "express-jwt": "^5.3.1",
